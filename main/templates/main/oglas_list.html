@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block content %}
+        <h2>Oglasi</h2>
+        <form method="get">
+            <input type="text" name="q" placeholder="Pretraži oglase..." value="{{ request.GET.q }}">
+            <button type="submit">Pretraži</button>
+        </form>
+        <a href="?razmjena=true" class="button">Razmjena omogućena</a>
+        <a href="?razmjena=false" class="button">Nemoguća razmjnea</a>
+    <ul>   
+    {% for oglas in object_list %}
+        <li>
+            Prodavatelj: {{ oglas.prodavatelj.ime }} {{ oglas.prodavatelj.prezime }}<br>
+            Predmet: {{ oglas.predmet }}<br>
+            Mjesto: {{ oglas.mjesto }}<br>
+            Cijena: {{ oglas.cijena }}€<br>
+            Razmjena: {{ oglas.razmjena }}<br><br>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

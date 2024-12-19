@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block content %}
+        <h2>Korisnici</h2>
+        <form method="get">
+            <input type="text" name="q" placeholder="Pretraži korisnike..." value="{{ request.GET.q }}">
+            <button type="submit">Pretraži</button>
+        </form>
+        <div>
+                <a href="?vip=true" class="button">VIP korisnici</a>
+                <a href="?vip=false" class="button">Nisu VIP korisnici</a>
+        </div>
+    <ul>
+        {% for korisnik in object_list %}
+            <li>
+                Ime: {{ korisnik.ime }}<br>
+                Prezime: {{ korisnik.prezime }}<br>
+                Mjesto: {{ korisnik.mjesto }}<br>
+                Dob: {{ korisnik.dob }}<br>
+                Vip: {{ korisnik.vip }}<br><br>
+            </li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+
+<body>
+    <h1>Sadržaj</h1>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/home/korisnici">Korisnici</a></li>
+            <li><a href="/home/oglasi/">Oglasi</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
