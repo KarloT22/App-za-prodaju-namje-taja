@@ -12,10 +12,13 @@
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
+        <a href="{% url 'base_generic' %}">Pregled</a>
     {% else %}
         <p>Niste prijavljeni.</p>
         <a href="{% url 'login' %}">Login</a> |
         <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'base_generic' %}">Pregled</a>
     {% endif %}
+    
 </body>
 </html>
