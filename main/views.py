@@ -2,12 +2,14 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from main.models import *
 from django.shortcuts import get_object_or_404
 
 class KorisnikList(ListView):
     model = Korisnik
+    context_object_name = 'korisnici'
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -22,9 +24,27 @@ class KorisnikList(ListView):
             queryset = queryset.filter(vip=vip_filter.lower() == 'true')
 
         return queryset
+
+class KorisnikCreate(CreateView):
+    model = Korisnik
+    fields = ['ime', 'prezime', 'mjesto', 'dob', 'vip']
+    template_name = 'main/korisnik_form.html'
+    success_url = reverse_lazy('korisnik_list')
+
+class KorisnikUpdate(UpdateView):
+    model = Korisnik
+    fields = ['ime', 'prezime', 'mjesto', 'dob', 'vip']
+    template_name = 'main/korisnik_form.html'
+    success_url = reverse_lazy('korisnik_list')
+
+class KorisnikDelete(DeleteView):
+    model = Korisnik
+    template_name = 'main/korisnik_confirm_delete.html'
+    success_url = reverse_lazy('korisnik_list')
     
 class OglasList(ListView):
     model = Oglas
+    context_object_name = 'oglasi'
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.GET.get('q')
@@ -39,6 +59,22 @@ class OglasList(ListView):
 
         return queryset
 
+class OglasCreate(CreateView):
+    model = Oglas
+    fields = ['prodavatelj', 'predmet', 'mjesto', 'cijena', 'razmjena']
+    template_name = 'main/oglas_form.html'
+    success_url = reverse_lazy('oglas_list')
+
+class OglasUpdate(UpdateView):
+    model = Oglas
+    fields = ['prodavatelj', 'predmet', 'mjesto', 'cijena', 'razmjena']
+    template_name = 'main/oglas_form.html'
+    success_url = reverse_lazy('oglas_list')
+
+class OglasDelete(DeleteView):
+    model = Oglas
+    template_name = 'main/oglas_confirm_delete.html'
+    success_url = reverse_lazy('oglas_list')
 
 def index(request):
     return render(request, 'main/index.html')

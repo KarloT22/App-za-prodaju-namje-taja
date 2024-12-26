@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% block content %}
         <h2>Korisnici</h2>
+        <a href="{% url 'create_korisnik' %}">Kreiraj novog korisnika</a>
         <form method="get">
             <input type="text" name="q" placeholder="Pretraži korisnike..." value="{{ request.GET.q }}">
             <button type="submit">Pretraži</button>
@@ -11,12 +12,14 @@
         </div>
     <ul>
         {% for korisnik in object_list %}
-            <li>
-                Ime: {{ korisnik.ime }}<br>
-                Prezime: {{ korisnik.prezime }}<br>
-                Mjesto: {{ korisnik.mjesto }}<br>
-                Dob: {{ korisnik.dob }}<br>
-                Vip: {{ korisnik.vip }}<br><br>
+            <li>    
+                    <p>Ime: <strong>{{ korisnik.ime }}</strong></p>
+                    <p>Prezime: <strong> {{ korisnik.prezime }}</strong></p>
+                    <p>Mjesto: <strong>{{ korisnik.mjesto }}</strong> </p>
+                    <p>Dob: <strong>{{ korisnik.dob }}</strong></p>
+                    <p>VIP: <strong>{{ korisnik.vip }}</strong></p>
+                    <a href="{% url 'update_korisnik' korisnik.pk %}" class="btn btn-update">Ažuriraj</a>
+                    <a href="{% url 'delete_korisnik' korisnik.pk %}" class="btn btn-delete">Izbriši</a>
             </li>
         {% endfor %}
 

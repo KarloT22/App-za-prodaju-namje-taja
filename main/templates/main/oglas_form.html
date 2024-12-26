@@ -1,0 +1,13 @@
+<h1>
+    {% if view.object %}
+        {{ view.object.predmet }}
+    {% else %}
+        Stvori oglas
+    {% endif %}
+</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Spremi</button>
+</form>
+<a href="{% url 'oglas_list' %}">Natrag na pregled</a>

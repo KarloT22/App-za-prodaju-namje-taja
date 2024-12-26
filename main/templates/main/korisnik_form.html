@@ -1,0 +1,13 @@
+<h1>
+    {% if view.object %}
+        {{ view.object.ime }}
+    {% else %}
+        Stvori korisnika
+    {% endif %}
+</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Spremi</button>
+</form>
+<a href="{% url 'korisnik_list' %}">Natrag na pregled</a>

@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% block content %}
         <h2>Oglasi</h2>
+        <a href="{% url 'create_oglas' %}">Kreiraj novi oglas</a>
         <form method="get">
             <input type="text" name="q" placeholder="Pretraži oglase..." value="{{ request.GET.q }}">
             <button type="submit">Pretraži</button>
@@ -10,11 +11,13 @@
     <ul>   
     {% for oglas in object_list %}
         <li>
-            Prodavatelj: {{ oglas.prodavatelj.ime }} {{ oglas.prodavatelj.prezime }}<br>
-            Predmet: {{ oglas.predmet }}<br>
-            Mjesto: {{ oglas.mjesto }}<br>
-            Cijena: {{ oglas.cijena }}€<br>
-            Razmjena: {{ oglas.razmjena }}<br><br>
+            <p>Prodavatelj: <strong>{{ oglas.prodavatelj.ime }} {{ oglas.prodavatelj.prezime }}</strong></p>
+            <p>Predmet: <strong>{{ oglas.predmet }}</strong></p>
+            <p>Mjesto: <strong>{{ oglas.mjesto }}</strong></p>
+            <p>Cijena: <strong>{{ oglas.cijena }} €</strong></p>
+            <p>Razmjena: <strong>{{ oglas.razmjena }}</strong></p>
+            <a href="{% url 'update_oglas' oglas.pk %}" class="btn btn-update">Ažuriraj</a>
+            <a href="{% url 'delete_oglas' oglas.pk %}" class="btn btn-delete">Izbriši</a>
         </li>
         {% endfor %}
     </ul>

@@ -1,0 +1,7 @@
+<h1>Izbriši korisnika</h1>
+    <p>Jeste li sigurni da želite izbrisati "{{ object.ime }} {{ object.prezime }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Da, izbriši</button>
+</form>
+<a href="{% url 'korisnik_list' %}">Odustani</a>
