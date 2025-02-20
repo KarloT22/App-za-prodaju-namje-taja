@@ -1,7 +1,14 @@
-<h1>Izbriši korisnika</h1>
-    <p>Jeste li sigurni da želite izbrisati "{{ object.ime }} {{ object.prezime }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Da, izbriši</button>
-</form>
-<a href="{% url 'korisnik_list' %}">Odustani</a>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="delete-container">
+        <h2>Izbriši korisnika</h2>
+        <p>Jeste li sigurni da želite izbrisati <strong>{{ object.ime }} {{ object.prezime }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-delete">Da, izbriši</button>
+            <a href="{% url 'korisnik_list' %}" class="btn-cancel">Odustani</a>
+        </form>
+    </div>
+{% endblock %}

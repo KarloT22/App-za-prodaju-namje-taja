@@ -1,11 +1,27 @@
-<form method="post" action="{% url 'register' %}">
-    {% csrf_token %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/registracija.css' %}">
+<div class="register-container">
+    <h2>Registracija</h2>
 
     {% if form.errors %}
-        <p>Greška.</p>
+        <div class="error-message">
+            <p>Greška prilikom unosa podataka. Pokušajte ponovno.</p>
+        </div>
     {% endif %}
 
-    {{ form }}
+    <form method="post" action="{% url 'register' %}" class="styled-form">
+        {% csrf_token %}
 
-    <input type="submit" value="Register" />
-</form>
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="field-error">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="btn-primary">Registriraj se</button>
+    </form>
+</div>

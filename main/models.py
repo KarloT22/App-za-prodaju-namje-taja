@@ -6,6 +6,8 @@ class Korisnik(models.Model):
     mjesto = models.CharField(max_length=100)
     dob = models.IntegerField()
     vip = models.BooleanField()
+    def __str__(self):
+        return f"{self.ime} {self.prezime}"
 
 class Oglas(models.Model):
     prodavatelj = models.ForeignKey(Korisnik, on_delete=models.CASCADE)
@@ -13,5 +15,5 @@ class Oglas(models.Model):
     mjesto = models.CharField(max_length=100)
     cijena = models.IntegerField()
     razmjena = models.BooleanField()
-    
-
+    def __str__(self):
+        return f"{self.predmet} - {self.prodavatelj}"

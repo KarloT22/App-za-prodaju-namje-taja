@@ -1,7 +1,14 @@
-<h1>Izbriši oglas</h1>
-    <p>Jeste li sigurni da želite izbrisati oglas za "{{ object.predmet }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Da, izbriši</button>
-</form>
-<a href="{% url 'oglas_list' %}">Odustani</a>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="delete-container">
+        <h2>Izbriši oglas</h2>
+        <p>Jeste li sigurni da želite izbrisati oglas za <strong>{{ object.predmet }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-delete">Da, izbriši</button>
+            <a href="{% url 'oglas_list' %}" class="btn-cancel">Odustani</a>
+        </form>
+    </div>
+{% endblock %}

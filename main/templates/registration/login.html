@@ -1,28 +1,31 @@
-{% if form.errors %}
-    <h3>Unos nije ispravan.</h3>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/login.css' %}">
+<div class="login-container">
+  {% if form.errors %}
+      <div class="error-message">
+          <h3>Unos nije ispravan.</h3>
+      </div>
+  {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</p>
-    {% else %}
-        <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
+  {% if next %}
+      {% if user.is_authenticated %}
+          <p class="error-text">Vaš račun nema pristup ovoj stranici. Za nastavak, prijavite se s računom koji ima pristup.</p>
+      {% else %}
+          <p class="info-text">Molim Vas da se logirate kako biste vidjeli ovu stranicu.</p>
+      {% endif %}
+  {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
+  <form method="post" action="{% url 'login' %}" class="styled-form">
+      {% csrf_token %}
+
+      <label for="{{ form.username.id_for_label }}">Korisničko ime:</label>
+      {{ form.username }}
+
+      <label for="{{ form.password.id_for_label }}">Lozinka:</label>
+      {{ form.password }}
+
+      <input type="hidden" name="next" value="{{ next }}" />
+
+      <button type="submit" class="btn-primary">Prijava</button>
   </form>
+</div>

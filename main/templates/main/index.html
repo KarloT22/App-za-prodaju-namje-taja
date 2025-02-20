@@ -2,23 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Početna stranica</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/index.css' %}">
 </head>
 <body>
-    <h1>Dobrodošli</h1>
+    <div class="container">
+        <h1 class="title">Dobrodošli</h1>
 
-    {% if user.is_authenticated %}
-        <p>Vaše ime: {{ user.username }}</p>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-        <a href="{% url 'base_generic' %}">Pregled</a>
-    {% else %}
-        <p>Niste prijavljeni.</p>
-        <a href="{% url 'login' %}">Login</a> |
-        <a href="{% url 'register' %}">Register</a>
-        <a href="{% url 'base_generic' %}">Pregled</a>
-    {% endif %}
-    
+        {% if user.is_authenticated %}
+            <p class="welcome-text">Vaše ime: <strong>{{ user.username }}</strong></p>
+            <form method="post" action="{% url 'logout' %}" class="styled-form">
+                {% csrf_token %}
+                <button type="submit" class="btn-primary">Logout</button>
+            </form>
+            <a href="{% url 'base_generic' %}" class="btn-secondary">Pregled</a>
+        {% else %}
+            <p class="welcome-text">Niste prijavljeni.</p>
+            <div class="button-group">
+                <a href="{% url 'login' %}" class="btn-primary">Login</a>
+                <a href="{% url 'register' %}" class="btn-secondary">Register</a>
+                <a href="{% url 'base_generic' %}" class="btn-secondary">Pregled</a>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>

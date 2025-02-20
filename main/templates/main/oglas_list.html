@@ -1,24 +1,35 @@
 {% extends "base_generic.html" %}
 {% block content %}
-        <h2>Oglasi</h2>
-        <a href="{% url 'create_oglas' %}">Kreiraj novi oglas</a>
-        <form method="get">
-            <input type="text" name="q" placeholder="Pretraži oglase..." value="{{ request.GET.q }}">
-            <button type="submit">Pretraži</button>
-        </form>
-        <a href="?razmjena=true" class="button">Razmjena omogućena</a>
-        <a href="?razmjena=false" class="button">Nemoguća razmjnea</a>
-    <ul>   
-    {% for oglas in object_list %}
-        <li>
-            <p>Prodavatelj: <strong>{{ oglas.prodavatelj.ime }} {{ oglas.prodavatelj.prezime }}</strong></p>
-            <p>Predmet: <strong>{{ oglas.predmet }}</strong></p>
-            <p>Mjesto: <strong>{{ oglas.mjesto }}</strong></p>
-            <p>Cijena: <strong>{{ oglas.cijena }} €</strong></p>
-            <p>Razmjena: <strong>{{ oglas.razmjena }}</strong></p>
-            <a href="{% url 'update_oglas' oglas.pk %}" class="btn btn-update">Ažuriraj</a>
-            <a href="{% url 'delete_oglas' oglas.pk %}" class="btn btn-delete">Izbriši</a>
-        </li>
+    <h2 class="title">Oglasi</h2>
+
+    <div class="actions">
+        <a href="{% url 'create_oglas' %}" class="btn-primary">Kreiraj novi oglas</a>
+    </div>
+
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Pretraži oglase..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn-search">Pretraži</button>
+    </form>
+
+    <div class="filters">
+        <a href="?razmjena=true" class="btn-filter">Razmjena omogućena</a>
+        <a href="?razmjena=false" class="btn-filter">Nemoguća razmjena</a>
+    </div>
+
+    <div class="user-list">
+        {% for oglas in object_list %}
+            <div class="user-card">
+                <p><strong>Prodavatelj:</strong> {{ oglas.prodavatelj.ime }} {{ oglas.prodavatelj.prezime }}</p>
+                <p><strong>Predmet:</strong> {{ oglas.predmet }}</p>
+                <p><strong>Mjesto:</strong> {{ oglas.mjesto }}</p>
+                <p><strong>Cijena:</strong> {{ oglas.cijena }} €</p>
+                <p><strong>Razmjena:</strong> {% if oglas.razmjena %} Da {% else %} Ne {% endif %}</p>
+                
+                <div class="user-actions">
+                    <a href="{% url 'update_oglas' oglas.pk %}" class="btn-update">Ažuriraj</a>
+                    <a href="{% url 'delete_oglas' oglas.pk %}" class="btn-delete">Izbriši</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

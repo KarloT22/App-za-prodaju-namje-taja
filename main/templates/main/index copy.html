@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Dobrodošli</h1>
+
+    {% if user.is_authenticated %}
+        <p>Vaše ime: {{ user.username }}</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        <a href="{% url 'base_generic' %}">Pregled</a>
+    {% else %}
+        <p>Niste prijavljeni.</p>
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'base_generic' %}">Pregled</a>
+    {% endif %}
+    
+</body>
+</html>

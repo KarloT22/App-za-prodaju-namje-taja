@@ -1,6 +1,11 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from main.views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'korisnici', views.KorisnikViewSet)
+router.register(r'oglasi', views.OglasViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -17,4 +22,6 @@ urlpatterns = [
     path('home/oglasi/<int:pk>/update/', OglasUpdate.as_view(), name='update_oglas'),
     path('home/oglasi/<int:pk>/delete/', OglasDelete.as_view(), name='delete_oglas'),
 
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

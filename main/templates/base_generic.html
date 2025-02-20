@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/base.css' %}">
 </head>
 
 <body>
-    <h1>Sadržaj</h1>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/home/korisnici">Korisnici</a></li>
-            <li><a href="/home/oglasi/">Oglasi</a></li>
-        </ul>
-        {% endblock %}
-    </div>
+    <div class="container">
+        <aside id="sidebar">
+            {% block sidebar %}
+            <ul class="sidebar-menu">
+                <li><a href="/home/korisnici">Korisnici</a></li>
+                <li><a href="/home/oglasi/">Oglasi</a></li>
+            </ul>
+            {% endblock %}
+        </aside>
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
+        <main class="content">
+            {% block content %}
+            {% endblock %}
+        </main>
     </div>
 </body>
 </html>

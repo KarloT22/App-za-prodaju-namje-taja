@@ -1,13 +1,21 @@
-<h1>
-    {% if view.object %}
-        {{ view.object.predmet }}
-    {% else %}
-        Stvori oglas
-    {% endif %}
-</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Spremi</button>
-</form>
-<a href="{% url 'oglas_list' %}">Natrag na pregled</a>
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/form.css' %}">
+
+<div class="container">
+    <h1 class="title">
+        {% if view.object %}
+            {{ view.object.ime }}
+        {% else %}
+            Stvori oglas
+        {% endif %}
+    </h1>
+
+    <div class="form-container">
+        <form method="post" class="styled-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-primary">Spremi</button>
+        </form>
+        <a href="{% url 'oglas_list' %}"class="btn-secondary">Natrag na pregled</a>
+    </div>
+</div>

@@ -6,6 +6,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from main.models import *
 from django.shortcuts import get_object_or_404
+from rest_framework import viewsets, permissions
+from main.serializers import * 
 
 class KorisnikList(ListView):
     model = Korisnik
@@ -97,3 +99,13 @@ def register(request):
         form = UserCreationForm()
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+
+class KorisnikViewSet(viewsets.ModelViewSet):
+    queryset = Korisnik.objects.all().order_by('ime')
+    serializer_class = KorisnikSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class OglasViewSet(viewsets.ModelViewSet):
+    queryset = Oglas.objects.all().order_by('prodavatelj')
+    serializer_class = OglasSerializer
+    permission_classes = [permissions.IsAuthenticated]

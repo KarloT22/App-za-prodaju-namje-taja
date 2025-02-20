@@ -1,27 +1,35 @@
 {% extends "base_generic.html" %}
 {% block content %}
-        <h2>Korisnici</h2>
-        <a href="{% url 'create_korisnik' %}">Kreiraj novog korisnika</a>
-        <form method="get">
-            <input type="text" name="q" placeholder="Pretraži korisnike..." value="{{ request.GET.q }}">
-            <button type="submit">Pretraži</button>
-        </form>
-        <div>
-                <a href="?vip=true" class="button">VIP korisnici</a>
-                <a href="?vip=false" class="button">Nisu VIP korisnici</a>
-        </div>
-    <ul>
-        {% for korisnik in object_list %}
-            <li>    
-                    <p>Ime: <strong>{{ korisnik.ime }}</strong></p>
-                    <p>Prezime: <strong> {{ korisnik.prezime }}</strong></p>
-                    <p>Mjesto: <strong>{{ korisnik.mjesto }}</strong> </p>
-                    <p>Dob: <strong>{{ korisnik.dob }}</strong></p>
-                    <p>VIP: <strong>{{ korisnik.vip }}</strong></p>
-                    <a href="{% url 'update_korisnik' korisnik.pk %}" class="btn btn-update">Ažuriraj</a>
-                    <a href="{% url 'delete_korisnik' korisnik.pk %}" class="btn btn-delete">Izbriši</a>
-            </li>
-        {% endfor %}
+    <h2 class="title">Korisnici</h2>
 
-    </ul>
+    <div class="actions">
+        <a href="{% url 'create_korisnik' %}" class="btn-primary">Kreiraj novog korisnika</a>
+    </div>
+
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Pretraži korisnike..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn-search">Pretraži</button>
+    </form>
+
+    <div class="filters">
+        <a href="?vip=true" class="btn-filter">VIP korisnici</a>
+        <a href="?vip=false" class="btn-filter">Nisu VIP korisnici</a>
+    </div>
+
+    <div class="user-list">
+        {% for korisnik in object_list %}
+            <div class="user-card">
+                <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
+                <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
+                <p><strong>Mjesto:</strong> {{ korisnik.mjesto }}</p>
+                <p><strong>Dob:</strong> {{ korisnik.dob }}</p>
+                <p><strong>VIP:</strong> {{ korisnik.vip }}</p>
+
+                <div class="user-actions">
+                    <a href="{% url 'update_korisnik' korisnik.pk %}" class="btn-update">Ažuriraj</a>
+                    <a href="{% url 'delete_korisnik' korisnik.pk %}" class="btn-delete">Izbriši</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
